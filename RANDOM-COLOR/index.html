@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let h3 = document.createElement('h3');
+        let div = document.createElement('div');
+        let button = document.createElement('button');  //create
+        
+
+        let div2 = document.createElement('div');
+        div2.style.cssText = "border: 1px solid black;background-color:red; padding:20px; border-radius: 50%; width:100px; height:100px";
+        document.body.appendChild(div2);
+
+        document.body.appendChild(h3);
+        document.body.appendChild(div);
+        document.body.appendChild(button);  // append
+
+
+        h3.innerText = "Color Name";
+        div.style.cssText = "border: 1px solid black; padding:20px; border-radius: 5px;";
+        button.innerText = "Generate Color";
+        button.style.cssText = "margin-top:10px; padding:10px 20px; background-color: green; color:white;"; // css 
+
+        button.addEventListener('click',()=>{
+            let randomcolor=getRandomColor();
+            h3.innerText=randomcolor;
+            div.style.backgroundColor = randomcolor;
+        })
+         
+        function getRandomColor(){
+            let red=Math.floor(Math.random()*255);
+            let green=Math.floor(Math.random()*255);
+            let blue=Math.floor(Math.random()*255);
+
+            let finalColor=`rgb(${red},${green},${blue})`;
+            return finalColor;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="ready">Ready</button>
+    <div class="container">
+        <h1>Number Guessing Game</h1>
+        <input type="number" class="input" placeholder="Enter a number 1 to 100">
+        <div class="buttons">
+            <button class="check">Check</button>
+            <button class="reset">Reset</button>
+        </div>
+        <p class="output">Output</p>
+    </div>
+
+    <script>
+        let Computer = Math.floor(Math.random() * 100) + 1;
+        console.log("Computer's number:", Computer);
+
+        const input = document.querySelector('.input');
+        const check = document.querySelector('.check');
+        const reset = document.querySelector('.reset');
+        const output = document.querySelector('.output');
+        const ready = document.querySelector('.ready');
+
+        input.disabled = true;
+        check.disabled = true;
+        ready.disabled = false;
+
+        check.addEventListener("click", () => {
+            let UserGuess = Number(input.value);
+            if (UserGuess < 1 || UserGuess > 100) {
+                output.textContent = "Your guess is out of range.";
+                output.style.color = "red";
+            } else if (UserGuess === Computer) {
+                output.textContent = "Congratulations! You guessed the number!";
+                output.style.color = "green";
+                input.disabled = true;
+                check.disabled = true;
+            } else if (UserGuess > Computer) {
+                output.textContent = "📈 Too high! Try again.";
+                output.style.color = "red";
+            } else {
+                output.textContent = "📉 Too low! Try again.";
+                output.style.color = "red";
+            }
+            input.value = "";
+        });
+
+        reset.addEventListener("click", () => {
+            Computer = Math.floor(Math.random() * 100) + 1;
+            console.log("New Computer's number:", Computer);
+            input.value = "";
+            output.textContent = "Output";
+            input.disabled = true;
+            check.disabled = true;
+            ready.disabled = false;
+        });
+
+        ready.addEventListener("click", () => {
+            input.disabled = false;
+            check.disabled = false;
+            ready.disabled = true;
+            output.textContent = "Start guessing!";
+            output.style.color = "black";
+        });
+    </script>
+</body>
+</html>
