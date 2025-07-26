@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random PassWord Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Random Password Generator</h1>
+    <div class="p-header">
+            <h2>Generate a Secure Password</h2>
+            <input type="text" id="password" placeholder="See password here" readonly>  
+            <button id="copy">Copy</button>
+            
+            <div class="p-content">
+                <div class="form-field">
+                    <label for="length">Password Length:</label>
+                    <input type="number" id="length" value="8" min="1" max="2">
+            </div>
+            <div class="form-field">
+                <label for="include-uppercase">Include Uppercase Letters</label>
+                <input type="checkbox" id="uppercase" checked>
+            </div>
+            <div class="form-field">
+                <label for="include-lowercase">Include Lowercase Letters</label>
+                <input type="checkbox" id="lowercase" checked>
+            </div>
+            <div class="form-field ">
+                <label for="include-numbers">Include Numbers</label>
+                <input type="checkbox" id="numbers" checked>
+            </div>
+           <div class="form-field">
+                <label for="include-special">Include Special Characters</label>
+                <input type="checkbox" id="special" checked>
+            </div>
+            <!-- <div class="form-field">
+                <label for="exclude-similar">Exclude Similar Characters</label>
+                <input type="checkbox" id="similar" checked>
+            </div>-->
+        </div>
+        <div class="p-footer">      
+            <button id="clear">Clear</button>
+            <button id="generate">Generate Password</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('generate').addEventListener('click', function() {
+            const length = parseInt(document.getElementById('length').value);
+            const includeUppercase = document.getElementById('uppercase').checked;
+            const includeLowercase = document.getElementById('lowercase').checked;
+            const includeNumbers = document.getElementById('numbers').checked;
+            const includeSpecial = document.getElementById('special').checked;
+
+            let characters = '';
+            if (includeUppercase) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (includeLowercase) characters += 'abcdefghijklmnopqrstuvwxyz';
+            if (includeNumbers) characters += '0123456789';
+            if (includeSpecial) characters += '!@#$%^&*_?';
+
+            if (characters.length === 0) {
+                alert('Please select at least one character type.');
+                return;
+            }
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            document.getElementById('password').value = password;
+        });
+
+        document.getElementById('copy').addEventListener('click', function() {
+            const passwordField = document.getElementById('password');
+            passwordField.select();
+            document.execCommand('copy');
+            alert('Password copied to clipboard!');
+        });
+
+        document.getElementById('clear').addEventListener('click', function() {
+            document.getElementById('password').value = '';
+        });
+    </script>
+
+</body>
+</html>
